@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anint.anurak.carmemorize">
+    package="com.carmemorize.app">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -14,22 +16,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.carmemorize.app.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ListCar" />
-        <activity android:name=".activity.History" />
-        <activity android:name=".activity.Summary" />
-        <activity android:name=".activity.AddCar" />
-        <activity android:name=".activity.AddEnergy" />
-        <activity android:name=".activity.TaxShow" />
-        <activity android:name=".activity.Service" />
-        <activity android:name=".activity.CarShow" />
-        <activity android:name=".activity.ListEnergy"></activity>
+        <activity android:name="com.carmemorize.app.activity.ListCar" />
+        <activity android:name="com.carmemorize.app.activity.History" />
+        <activity android:name="com.carmemorize.app.activity.Summary" />
+        <activity android:name="com.carmemorize.app.activity.AddCar" />
+        <activity android:name="com.carmemorize.app.activity.AddEnergy" />
+        <activity android:name="com.carmemorize.app.activity.TaxShow" />
+        <activity android:name="com.carmemorize.app.activity.Service" />
+        <activity android:name="com.carmemorize.app.activity.CarShow" />
+        <activity android:name="com.carmemorize.app.activity.ListEnergy"></activity>
     </application>
 
 </manifest>
