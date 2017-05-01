@@ -28,11 +28,11 @@ public class Utils {
 
             if (mediaStorageDir.mkdirs()) {
 
-                Log.d("--------- ", "Directory is created.");
+                Log.d("", "Directory is created.");
 
             } else {
 
-                Log.d("--------- ", "Failed to create directory.");
+                Log.d("", "Failed to create directory.");
             }
         }
 
@@ -54,7 +54,7 @@ public class Utils {
             e.printStackTrace();
         }
 
-        Log.d("--------- ", "FileNotFoundException java.io.FileNotFoundException: " + mediaFile.getPath());
+        Log.d("", "File path " + mediaFile.getPath());
 
         return photoName;
 
@@ -67,14 +67,14 @@ public class Utils {
         try {
 
             File imageFile = new File(activity.getDir(Environment.DIRECTORY_PICTURES, activity.MODE_PRIVATE), photoName);
-            Log.d("--------- ", "imageFile " + imageFile);
+            Log.d("", "imageFile " + imageFile);
 
             bitmap = BitmapFactory.decodeStream(new FileInputStream(imageFile));
-            Log.d("--------- ", "bitmap " + bitmap);
+            Log.d("", "bitmap " + bitmap);
         } catch (FileNotFoundException e) {
 
             e.printStackTrace();
-            Log.d("--------- ", "FileNotFoundException " + e);
+            Log.d("", "FileNotFoundException " + e);
         }
 
         return bitmap;

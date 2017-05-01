@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.carmemorize.app.R;
 import com.carmemorize.app.adapter.CarAdapter;
 import com.carmemorize.app.adapter.EnergyAdapter;
+import com.carmemorize.app.component.Constants;
 import com.carmemorize.app.model.EnergyModel;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ListEnergy extends AppCompatActivity {
     ImageView noEnergy;
     ListView energyListItem;
     TextView textDeflaut;
-    String userCarId ;
+    String carId;
     String carName ;
     ArrayList<EnergyModel> EnergyModelModels;
     CarAdapter carAdapter;
@@ -45,14 +46,9 @@ public class ListEnergy extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTitle = (TextView) findViewById(R.id.toolbar_title);
 
+        carId = getIntent().getStringExtra(Constants.CAR_ID);
 
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            userCarId = extras.getString("user_carId");
-            carName = extras.getString("car_name");
-
-        }
+        carName = getIntent().getStringExtra(Constants.CAR_NAME);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,16 +63,15 @@ public class ListEnergy extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListEnergy.this, AddEnergy.class);
-                intent.putExtra("user_carId",userCarId);
+                intent.putExtra("user_carId", carId);
                 startActivity(intent);
             }
         });
-        Log.e("--------userCarId",""+userCarId);
 
         SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
         Cursor cursor = db.rawQuery("select car_id,date_energy,station,type_gass,mileage,volume," +
-                "type_volume,net_price,type_netPrice from energy_car where car_id = '"+userCarId+"'", null);
-     //   "type_volume,net_price,type_netPrice from energy_car where car_id = " + userCarId , null);
+                "type_volume,net_price,type_netPrice from energy_car where car_id = '"+ carId +"'", null);
+
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 String carId = cursor.getString(0);

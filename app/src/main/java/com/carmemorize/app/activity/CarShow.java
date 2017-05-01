@@ -12,21 +12,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.carmemorize.app.R;
 import com.carmemorize.app.component.Constants;
 import com.carmemorize.app.component.RoundedImageView;
 import com.carmemorize.app.component.Utils;
+import com.carmemorize.app.model.CarModel;
+
+import org.parceler.Parcels;
 
 
 public class CarShow extends AppCompatActivity {
 
     private TextView showName, showBrand, showLicense, showColor, showDateOfDay;
+
     private Button btnShowSaveCar;
-    private String user_carId;
+
+    private String carId;
+
     private Toolbar toolbar;
+
     private ImageView showCarPhoto;
+
+    private LinearLayout btnEditCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +52,7 @@ public class CarShow extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        user_carId = getIntent().getStringExtra("user_carId");
-
-        Log.d("--------- ", "carId : " + user_carId);
+        carId = getIntent().getStringExtra(Constants.CAR_ID);
 
         showName = (TextView) findViewById(R.id.show_name_car);
 
@@ -60,14 +68,13 @@ public class CarShow extends AppCompatActivity {
 
         btnShowSaveCar = (Button) findViewById(R.id.btn_show_save_car);
 
+        btnEditCar = (LinearLayout) findViewById(R.id.img_edit_car);
 
         SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
 
         if (db != null) {
 
-            Cursor cursor = db.rawQuery("select * from car_detail where car_id = '" + user_carId + "'", null);
-
-            Log.d("----------", "cursor " + cursor);
+            Cursor cursor = db.rawQuery("select * from car_detail where car_id = '" + carId + "'", null);
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -84,24 +91,15 @@ public class CarShow extends AppCompatActivity {
 
                     String photo_car = cursor.getString(7);
 
-                    Log.d("----------", "cursor.getString(0) " + cursor.getString(0));
-                    Log.d("----------", "cursor.getString(1) carId " + cursor.getString(1));
-                    Log.d("----------", "cursor.getString(2) dateBuy " + cursor.getString(2));
-                    Log.d("----------", "cursor.getString(3) name " + cursor.getString(3));
-                    Log.d("----------", "cursor.getString(4) brand " + cursor.getString(4));
-                    Log.d("----------", "cursor.getString(5) license_car " + cursor.getString(5));
-                    Log.d("----------", "cursor.getString(6) color_car " + cursor.getString(6));
-                    Log.d("----------", "cursor.getString(7) photo_car " + cursor.getString(7));
-
                     showName.setText(name);
 
-                    showBrand.setText(brand);
+                    showBrand.setText( brand.isEmpty() ? "-" : brand );
 
-                    showLicense.setText(licenseCar);
+                    showLicense.setText( licenseCar.isEmpty() ? "-" : licenseCar );
 
                     showColor.setText(colorCar);
 
-                    showDateOfDay.setText(dateBuy);
+                    showDateOfDay.setText( dateBuy.isEmpty() ? "-" : dateBuy );
 
                     Bitmap pictureBitmap = Utils.getImageInInterStorage(CarShow.this, photo_car);
 
@@ -133,7 +131,17 @@ public class CarShow extends AppCompatActivity {
             }
         });
 
+        btnEditCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                openEditCar();
+
+            }
+        });
+
     }
+
 
     @Override
     public void onDestroy() {
@@ -144,5 +152,16 @@ public class CarShow extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    private void openEditCar() {
+
+        Intent intent = new Intent(CarShow.this, EditCarActivity.class);
+
+        intent.putExtra(Constants.CAR_ID, carId);
+
+        startActivity(intent);
+
+        finish();
     }
 }

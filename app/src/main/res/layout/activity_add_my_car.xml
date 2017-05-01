@@ -18,10 +18,10 @@
             android:background="?attr/colorPrimary">
 
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Add My Car"
                 android:textSize="22dp"
                 android:layout_marginRight="45dp"
                 android:textStyle="bold" />

@@ -17,6 +17,7 @@ import com.carmemorize.app.activity.CarShow;
 import com.carmemorize.app.activity.ListEnergy;
 import com.carmemorize.app.activity.Service;
 import com.carmemorize.app.activity.TaxShow;
+import com.carmemorize.app.component.Constants;
 import com.carmemorize.app.model.CarModel;
 
 import java.util.ArrayList;
@@ -82,34 +83,34 @@ public class CarAdapter extends ArrayAdapter<CarModel> {
 
                 if (numberPage.equals("1")){
                     Intent intent = new Intent(getContext(), CarShow.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
 
                 }
                 else if (numberPage.equals("2")){
                     Intent intent = new Intent(getContext(), ListEnergy.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
-                    intent.putExtra("car_name",carModel.getName());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
+                    intent.putExtra(Constants.CAR_NAME, carModel.getName());
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("3")){
                     Intent intent = new Intent(getContext(), TaxShow.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("4")){
                     Intent intent = new Intent(getContext(), Service.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("5")){
                     Intent intent = new Intent(getContext(), CarShow.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("6")){
                     Intent intent = new Intent(getContext(), CarShow.class);
-                    intent.putExtra("user_carId",carModel.getCarId());
+                    intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }
 

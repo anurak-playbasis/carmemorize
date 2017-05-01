@@ -18,8 +18,10 @@ import com.carmemorize.app.R;
 import com.carmemorize.app.adapter.CarAdapter;
 import com.carmemorize.app.model.CarModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 public class ListCar extends AppCompatActivity {
 
@@ -92,24 +94,18 @@ public class ListCar extends AppCompatActivity {
         });
        // textDeflaut.setVisibility(View.GONE);
         SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select car_id,date_buy,name_car,brand,license_car,color_car from car_detail ", null);
+        Cursor cursor = db.rawQuery("select * from car_detail ", null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                String carId = cursor.getString(0);
-                String dateBuy = cursor.getString(1);
-                String name = cursor.getString(2);
-                String brand = cursor.getString(3);
-                String licenseCar = cursor.getString(4);
-                String colorCar = cursor.getString(5);
-               // String photo_car = cursor.getString(5);
-                Log.e("222","carId"+cursor.getString(0));
-                Log.e("2222","dateBuy"+cursor.getString(1));
-                Log.e("22222","name"+cursor.getString(2));
-                Log.e("222222","brand"+cursor.getString(3));
-                Log.e("2222222","license_car"+cursor.getString(4));
-                Log.e("22222222","color_car"+cursor.getString(5));
+                String carId = cursor.getString(1);
+                String dateBuy = cursor.getString(2);
+                String name = cursor.getString(3);
+                String brand = cursor.getString(4);
+                String licenseCar = cursor.getString(5);
+                String colorCar = cursor.getString(6);;
+                String photoCar = cursor.getString(7);;
 
-                CarModelModels.add(new CarModel(carId,dateBuy,name, brand, licenseCar, colorCar));
+                CarModelModels.add(new CarModel(carId,dateBuy,name, brand, licenseCar, colorCar, photoCar));
 
             } while (cursor.moveToNext());
             carCount = true;
@@ -131,10 +127,6 @@ public class ListCar extends AppCompatActivity {
             carListItem.setAdapter(carAdapter);
         }
 
-
-
-
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +140,8 @@ public class ListCar extends AppCompatActivity {
         super.onDestroy();
         finish();
     }
+
+
     @Override
     protected void onStop() {
         super.onStop();

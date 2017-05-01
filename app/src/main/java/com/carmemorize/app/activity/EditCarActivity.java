@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,64 +44,95 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddCar extends AppCompatActivity {
-
-    private static final String TAG = AddCar.class.getSimpleName();
-    private final int REQUEST_CAMERA = 1;
+public class EditCarActivity extends AppCompatActivity {
+    
+    private Toolbar toolbar;
+    
+    private String carId;
 
     private Spinner spColor;
+    
     private Button btnSave;
-    EditText dateOfBuy,nameCar,brandCar,licenseCar;
-    ImageView takePhoto;
-    Toolbar toolbar;
+    
+    private EditText dateOfBuy, nameCar, brandCar, licenseCar;
+    
+    private ImageView takePhoto;
+
+    private final int REQUEST_CAMERA = 1;
+
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+
+    public static final String ALLOW_KEY = "ALLOWED";
+
+    public static final String CAMERA_PREF = "camera_pref";
+
+    SQLiteDatabase db;
+
+    public static final String MyPREFERENCES = "shareCar";
+
+    SharedPreferences sharedpreference;
+
+    SharedPreferences.Editor editor;
+
+    private SimpleDateFormat dateFormatter;
 
     private DatePickerDialog fromDatePickerDialog;
-    private SimpleDateFormat dateFormatter;
-    SQLiteDatabase db;
-    public static final String MyPREFERENCES = "shareCar";
-    SharedPreferences sharedpreference;
-    SharedPreferences.Editor editor;
-    //String[] separated;
-    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
-    public static final String ALLOW_KEY = "ALLOWED";
-    public static final String CAMERA_PREF = "camera_pref";
+
+    private String photoName;
+
+    private String oldCarPhoto;
 
     private TextView toolbarTitle;
 
-    private String carId;
-
-    private String photoName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_my_car);
 
+        intToolBar();
+
+        carId = getIntent().getStringExtra(Constants.CAR_ID);
+
+        initInstance();
+        
+        addColorSelection();
+        
+        addDateOfBuy();
+        
+        onClickButton();
+
+    }
+
+    private void intToolBar() {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         toolbarTitle = (TextView) findViewById(R.id.toolbar_title);
-        toolbarTitle.setText(getString(R.string.text_add_my_car));
+
+        toolbarTitle.setText(getString(R.string.text_edit_my_car));
+
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        initInstance();
-        addColorSelection();
-        addDateOfBuy();
-        onClickButton();
-
-
-
     }
 
     private void initInstance() {
 
         nameCar = (EditText)findViewById(R.id.name_car);
+
         brandCar = (EditText)findViewById(R.id.brand_car);
+
         licenseCar = (EditText)findViewById(R.id.license_car);
+
         spColor = (Spinner) findViewById(R.id.sp_color);
+
         btnSave = (Button) findViewById(R.id.btn_save_car);
+
         dateOfBuy = (EditText)findViewById(R.id.et_dateOfBuy);
+
         takePhoto = (ImageView)findViewById(R.id.im_take_photo);
 
         takePhoto.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +151,70 @@ public class AddCar extends AppCompatActivity {
                 finish();
             }
         });
+
+        displayCarData();
     }
 
+    private void displayCarData(){
+
+        SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
+
+        if (db != null) {
+
+            Cursor cursor = db.rawQuery("select * from car_detail where car_id = '" + carId + "'", null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+
+                do {
+
+                    String dateBuy = cursor.getString(2);
+
+                    String name = cursor.getString(3);
+
+                    String brand = cursor.getString(4);
+
+                    String license = cursor.getString(5);
+
+                    String photo_car = cursor.getString(7);
+
+                    oldCarPhoto = photo_car;
+
+                    nameCar.setText(name);
+
+                    brandCar.setText(brand);
+
+                    licenseCar.setText(license);
+
+                    dateOfBuy.setText(dateBuy);
+
+                    String[] colorArray = getResources().getStringArray(R.array.color_arrays);
+
+                    for (int index = 0; index <colorArray.length; index++){
+
+                        if (colorArray[index].equals(cursor.getString(6))){
+
+                            spColor.setSelection(index);
+
+                        }
+                    }
+
+
+                    Bitmap pictureBitmap = Utils.getImageInInterStorage(EditCarActivity.this, photo_car);
+
+                    if (pictureBitmap != null) {
+
+                        takePhoto.setImageBitmap(RoundedImageView.getCroppedBitmap(pictureBitmap, Constants.IMAGE_RADIUS));
+
+                    }
+
+                } while (cursor.moveToNext());
+
+            } else {
+
+            }
+        }
+    }
+    
     public void addColorSelection() {
         spColor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -140,8 +235,7 @@ public class AddCar extends AppCompatActivity {
 
     // get the selected dropdown list value
     public void onClickButton() {
-
-
+        
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -167,7 +261,7 @@ public class AddCar extends AppCompatActivity {
 
         if (carName.isEmpty()){
 
-            Toast.makeText(AddCar.this, getString(R.string.toast_enter_car_name), Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCarActivity.this, getString(R.string.toast_enter_car_name), Toast.LENGTH_SHORT).show();
 
             nameCar.requestFocus();
 
@@ -176,14 +270,14 @@ public class AddCar extends AppCompatActivity {
 
         if (carBrand.isEmpty()){
 
-            Toast.makeText(AddCar.this, getString(R.string.toast_enter_car_name), Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCarActivity.this, getString(R.string.toast_enter_car_name), Toast.LENGTH_SHORT).show();
 
             brandCar.requestFocus();
 
             return;
         }
 
-        saveDataToBase();
+        editCarOnDataBase();
 
     }
 
@@ -194,7 +288,7 @@ public class AddCar extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               // Toast.makeText(AddCar.this,"click able",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(EditCarActivity.this,"click able",Toast.LENGTH_SHORT).show();
                 dateFormatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                 Calendar newCalendar = Calendar.getInstance();
                 //separated = age.split("/");
@@ -243,7 +337,7 @@ public class AddCar extends AppCompatActivity {
             }
         } else {
 
-           takeFromCamera();
+            takeFromCamera();
         }
 
     }
@@ -270,7 +364,7 @@ public class AddCar extends AppCompatActivity {
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
-            photoName = Utils.saveImageInInterStorage(AddCar.this, photo);
+            photoName = Utils.saveImageInInterStorage(EditCarActivity.this, photo);
 
             updatePicture();
 
@@ -279,7 +373,7 @@ public class AddCar extends AppCompatActivity {
 
     public void updatePicture(){
 
-        Bitmap pictureBitmap = Utils.getImageInInterStorage(AddCar.this, photoName);
+        Bitmap pictureBitmap = Utils.getImageInInterStorage(EditCarActivity.this, photoName);
 
         if (pictureBitmap != null){
 
@@ -302,7 +396,7 @@ public class AddCar extends AppCompatActivity {
         return (myPrefs.getBoolean(key, false));
     }
     private void showAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(AddCar.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(EditCarActivity.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
 
@@ -319,7 +413,7 @@ public class AddCar extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        ActivityCompat.requestPermissions(AddCar.this,
+                        ActivityCompat.requestPermissions(EditCarActivity.this,
                                 new String[]{Manifest.permission.CAMERA},
                                 MY_PERMISSIONS_REQUEST_CAMERA);
                     }
@@ -328,7 +422,7 @@ public class AddCar extends AppCompatActivity {
     }
 
     private void showSettingsAlert() {
-        AlertDialog alertDialog = new AlertDialog.Builder(AddCar.this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(EditCarActivity.this).create();
         alertDialog.setTitle("Alert");
         alertDialog.setMessage("App needs to access the Camera.");
 
@@ -346,7 +440,7 @@ public class AddCar extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        startInstalledAppDetailsActivity(AddCar.this);
+                        startInstalledAppDetailsActivity(EditCarActivity.this);
                     }
                 });
 
@@ -399,12 +493,10 @@ public class AddCar extends AppCompatActivity {
     }
 
 
-    private void saveDataToBase() {
+    private void editCarOnDataBase() {
 
         sharedpreference = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
-
-        carId = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
         ContentValues cv = new ContentValues();
         cv.put("car_id", carId);
@@ -413,20 +505,20 @@ public class AddCar extends AppCompatActivity {
         cv.put("brand", brandCar.getText().toString() );
         cv.put("license_car", licenseCar.getText().toString());
         cv.put("color_car", sharedpreference.getString("spColor",null));
-        cv.put("photo_car", photoName != null ? photoName : "");
-        db.insert("car_detail", null, cv);
+        cv.put("photo_car", photoName != null ? photoName : oldCarPhoto);
+
+        db.update("car_detail", cv, "car_id = "+carId, null);
         db.close();
 
         if (db != null){
 
-            Toast.makeText(AddCar.this, getString(R.string.toast_add_data_successfully), Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCarActivity.this, getString(R.string.toast_edit_data_successfully), Toast.LENGTH_SHORT).show();
 
             openMain();
 
         }
 
     }
-
 
     @Override
     public void onDestroy() {
@@ -440,9 +532,10 @@ public class AddCar extends AppCompatActivity {
         super.onStop();
     }
 
+
     private void openMain(){
 
-        Intent intent = new Intent(AddCar.this,MainActivity.class);
+        Intent intent = new Intent(EditCarActivity.this,MainActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -452,3 +545,4 @@ public class AddCar extends AppCompatActivity {
     }
 
 }
+

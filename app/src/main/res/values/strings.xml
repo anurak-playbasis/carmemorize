@@ -72,4 +72,14 @@
         <item>Kim</item>
     </string-array>
 
+    <!--toast-->
+    <string name="toast_enter_car_name">Please enter your car name.</string>
+    <string name="toast_enter_car_brand">Please enter your brand name.</string>
+    <string name="toast_add_data_successfully">Add data successfully.</string>
+    <string name="toast_edit_data_successfully">Edit data successfully.</string>
+
+    <!--add my car-->
+    <string name="text_add_my_car">Add My Car</string>
+    <string name="text_edit_my_car">Edit My Car</string>
+
 </resources>

@@ -1,9 +1,11 @@
 package com.carmemorize.app.model;
 
+import org.parceler.Parcel;
+
 /**
  * Created by User on 11/7/2016.
  */
-
+@Parcel
 public class CarModel {
     String carId;
     String dateBuy;
@@ -14,7 +16,7 @@ public class CarModel {
     String photoCar;
 
     public CarModel(String carId,String dateBuy,String name, String brand,
-                    String licenseCar, String colorCar)
+                    String licenseCar, String colorCar, String photoCar)
     {
         this.carId           =  carId;
         this.dateBuy         =  dateBuy;
@@ -22,7 +24,7 @@ public class CarModel {
         this.brand          =  brand;
         this.licenseCar    =  licenseCar;
         this.colorCar      =  colorCar;
-        //this.photo_car      =  photo_car;
+        this.photoCar      =  photoCar;
 
     }
 
@@ -83,10 +85,6 @@ public class CarModel {
     public void setLicenseCar(String licenseCar) {
         this.licenseCar = licenseCar;
     }
-
-
-
-
 
 
 }
