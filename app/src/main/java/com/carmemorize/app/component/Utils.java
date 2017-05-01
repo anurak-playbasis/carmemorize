@@ -60,7 +60,6 @@ public class Utils {
 
     }
 
-
     public static Bitmap getImageInInterStorage(Activity activity, String photoName) {
 
         Bitmap bitmap = null;

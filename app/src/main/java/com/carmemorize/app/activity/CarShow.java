@@ -22,7 +22,7 @@ import com.carmemorize.app.component.Utils;
 
 public class CarShow extends AppCompatActivity {
 
-    private TextView showCarId, showName, showBrand, showLicense, showColor, showDateOfDay;
+    private TextView showName, showBrand, showLicense, showColor, showDateOfDay;
     private Button btnShowSaveCar;
     private String user_carId;
     private Toolbar toolbar;
@@ -45,8 +45,6 @@ public class CarShow extends AppCompatActivity {
         user_carId = getIntent().getStringExtra("user_carId");
 
         Log.d("--------- ", "carId : " + user_carId);
-
-        showCarId = (TextView) findViewById(R.id.show_car_id);
 
         showName = (TextView) findViewById(R.id.show_name_car);
 
@@ -74,8 +72,6 @@ public class CarShow extends AppCompatActivity {
             if (cursor != null && cursor.moveToFirst()) {
                 do {
 
-                    String carId = cursor.getString(1);
-
                     String dateBuy = cursor.getString(2);
 
                     String name = cursor.getString(3);
@@ -96,8 +92,6 @@ public class CarShow extends AppCompatActivity {
                     Log.d("----------", "cursor.getString(5) license_car " + cursor.getString(5));
                     Log.d("----------", "cursor.getString(6) color_car " + cursor.getString(6));
                     Log.d("----------", "cursor.getString(7) photo_car " + cursor.getString(7));
-
-                    showCarId.setText(carId);
 
                     showName.setText(name);
 

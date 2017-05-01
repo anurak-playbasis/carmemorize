@@ -19,6 +19,7 @@ import com.carmemorize.app.adapter.CarAdapter;
 import com.carmemorize.app.model.CarModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListCar extends AppCompatActivity {
 
@@ -91,7 +92,7 @@ public class ListCar extends AppCompatActivity {
         });
        // textDeflaut.setVisibility(View.GONE);
         SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select car_id,date_buy,name_car,brand,license_car,color_car from car_detail", null);
+        Cursor cursor = db.rawQuery("select car_id,date_buy,name_car,brand,license_car,color_car from car_detail ", null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 String carId = cursor.getString(0);
@@ -125,6 +126,7 @@ public class ListCar extends AppCompatActivity {
             textDeflaut.setText("No list name of car");
 
         }else {
+            Collections.reverse(CarModelModels);
             carAdapter = new CarAdapter(this, R.layout.car_item, CarModelModels);
             carListItem.setAdapter(carAdapter);
         }

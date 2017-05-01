@@ -75,7 +75,7 @@ public class ListEnergy extends AppCompatActivity {
 
         SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
         Cursor cursor = db.rawQuery("select car_id,date_energy,station,type_gass,mileage,volume," +
-                "type_volume,net_price,type_netPrice from energy_car where car_id = "+userCarId+"", null);
+                "type_volume,net_price,type_netPrice from energy_car where car_id = '"+userCarId+"'", null);
      //   "type_volume,net_price,type_netPrice from energy_car where car_id = " + userCarId , null);
         if (cursor != null && cursor.moveToFirst()) {
             do {

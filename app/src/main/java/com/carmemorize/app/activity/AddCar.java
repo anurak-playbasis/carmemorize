@@ -37,6 +37,7 @@ import com.carmemorize.app.component.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class AddCar extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class AddCar extends AppCompatActivity {
 
     private Spinner spColor;
     private Button btnSave;
-    EditText dateOfBuy,carId,nameCar,brandCar,licenseCar;
+    EditText dateOfBuy,nameCar,brandCar,licenseCar;
     ImageView takePhoto;
     Toolbar toolbar;
 
@@ -84,8 +85,6 @@ public class AddCar extends AppCompatActivity {
 
     private void initInstance() {
 
-
-        carId = (EditText)findViewById(R.id.car_id);
         nameCar = (EditText)findViewById(R.id.name_car);
         brandCar = (EditText)findViewById(R.id.brand_car);
         licenseCar = (EditText)findViewById(R.id.license_car);
@@ -349,7 +348,6 @@ public class AddCar extends AppCompatActivity {
     }
     @Override
     protected void onResume() {
-        Log.d("------------------- ","onResume");
         super.onResume();
     }
 
@@ -374,9 +372,11 @@ public class AddCar extends AppCompatActivity {
 
         sharedpreference = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
+
         Log.d("----------","db "+db);
+
         ContentValues cv = new ContentValues();
-        cv.put("car_id",carId.getText().toString());
+        cv.put("car_id", new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         cv.put("date_buy",dateOfBuy.getText().toString());
         cv.put("name_car",nameCar.getText().toString());
         cv.put("brand", brandCar.getText().toString() );
@@ -387,7 +387,7 @@ public class AddCar extends AppCompatActivity {
         db.close();
 
         Log.d("----------","after save to data base ");
-        Log.d("----------","carId "+carId.getText().toString() );
+        Log.d("----------","carId "+new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         Log.d("---------- ","dateOfBuy "+dateOfBuy.getText().toString() );
         Log.d("---------- ","nameCar "+nameCar.getText().toString() );
         Log.d("---------- ","brandCar "+brandCar.getText().toString() );
