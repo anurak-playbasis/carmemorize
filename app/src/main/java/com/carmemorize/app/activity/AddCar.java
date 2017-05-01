@@ -60,6 +60,8 @@ public class AddCar extends AppCompatActivity {
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     public static final String ALLOW_KEY = "ALLOWED";
     public static final String CAMERA_PREF = "camera_pref";
+
+    private String photoName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -236,9 +238,21 @@ public class AddCar extends AppCompatActivity {
 
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 
-            Utils.saveImageInInterStorage(AddCar.this, photo);
+            photoName = Utils.saveImageInInterStorage(AddCar.this, photo);
 
-            takePhoto.setImageBitmap(RoundedImageView.getCroppedBitmap(photo, Constants.IMAGE_RADIUS));
+            updatePicture();
+
+        }
+    }
+
+    public void updatePicture(){
+
+        Bitmap pictureBitmap = Utils.getImageInInterStorage(AddCar.this, photoName);
+        Log.d("--------- ","updateImage "+pictureBitmap);
+
+        if (pictureBitmap != null){
+
+            takePhoto.setImageBitmap(RoundedImageView.getCroppedBitmap(pictureBitmap, Constants.IMAGE_RADIUS));
 
         }
     }
@@ -356,11 +370,11 @@ public class AddCar extends AppCompatActivity {
 
 
     private void saveDataToBase() {
-        Log.e("11111","...into..saveDataBase");
+        Log.d("----------","...into..saveDataBase");
 
         sharedpreference = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
-
+        Log.d("----------","db "+db);
         ContentValues cv = new ContentValues();
         cv.put("car_id",carId.getText().toString());
         cv.put("date_buy",dateOfBuy.getText().toString());
@@ -368,16 +382,18 @@ public class AddCar extends AppCompatActivity {
         cv.put("brand", brandCar.getText().toString() );
         cv.put("license_car", licenseCar.getText().toString());
         cv.put("color_car", sharedpreference.getString("spColor",null));
-        //cv.put("photo_car", sprefs.getString("lateMinutes",null));
+        cv.put("photo_car", photoName != null ? photoName : "");
         db.insert("car_detail", null, cv);
         db.close();
 
-        Log.e("111111",""+carId.getText().toString() );
-        Log.e("1111111",""+dateOfBuy.getText().toString() );
-        Log.e("11111111",""+nameCar.getText().toString() );
-        Log.e("111111111",""+brandCar.getText().toString() );
-        Log.e("1111111111",""+licenseCar.getText().toString() );
-        Log.e("11111111111",""+sharedpreference.getString("spColor",null));
+        Log.d("----------","after save to data base ");
+        Log.d("----------","carId "+carId.getText().toString() );
+        Log.d("---------- ","dateOfBuy "+dateOfBuy.getText().toString() );
+        Log.d("---------- ","nameCar "+nameCar.getText().toString() );
+        Log.d("---------- ","brandCar "+brandCar.getText().toString() );
+        Log.d("---------- ","licenseCar "+licenseCar.getText().toString() );
+        Log.d("---------- ","spColor "+sharedpreference.getString("spColor",null));
+        Log.d("---------- ","photoName "+photoName);
 
     }
 

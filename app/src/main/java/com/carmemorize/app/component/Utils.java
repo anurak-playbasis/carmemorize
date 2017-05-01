@@ -3,44 +3,47 @@ package com.carmemorize.app.component;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 
 import com.carmemorize.app.R;
+import com.carmemorize.app.activity.AddCar;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Utils {
 
-    public static void saveImageInInterStorage(Activity activity, Bitmap finalBitmap){
-        String appName = activity.getString(R.string.app_name);
-        /** Create a File for saving an image or video */
+    public static String saveImageInInterStorage(Activity activity, Bitmap finalBitmap) {
 
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), appName);
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
+        File mediaStorageDir = activity.getDir(Environment.DIRECTORY_PICTURES, activity.MODE_PRIVATE);
 
-        // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
+
             if (mediaStorageDir.mkdirs()) {
-                Log.d("--------- ","Directory is created.");
+
+                Log.d("--------- ", "Directory is created.");
+
             } else {
-                Log.d("--------- ","Failed to create directory.");
+
+                Log.d("--------- ", "Failed to create directory.");
             }
         }
 
-        // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_" + timeStamp + ".jpg");
+
+        String photoName = "IMG_" + timeStamp + ".jpg";
+
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + photoName);
 
         if (mediaFile.exists()) mediaFile.delete();
+
         try {
             FileOutputStream out = new FileOutputStream(mediaFile);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -51,7 +54,30 @@ public class Utils {
             e.printStackTrace();
         }
 
-        Log.d("--------- ","mediaFile.getPath()"+mediaFile.getPath());
+        Log.d("--------- ", "FileNotFoundException java.io.FileNotFoundException: " + mediaFile.getPath());
 
+        return photoName;
+
+    }
+
+
+    public static Bitmap getImageInInterStorage(Activity activity, String photoName) {
+
+        Bitmap bitmap = null;
+
+        try {
+
+            File imageFile = new File(activity.getDir(Environment.DIRECTORY_PICTURES, activity.MODE_PRIVATE), photoName);
+            Log.d("--------- ", "imageFile " + imageFile);
+
+            bitmap = BitmapFactory.decodeStream(new FileInputStream(imageFile));
+            Log.d("--------- ", "bitmap " + bitmap);
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+            Log.d("--------- ", "FileNotFoundException " + e);
+        }
+
+        return bitmap;
     }
 }

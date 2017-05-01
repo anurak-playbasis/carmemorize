@@ -187,7 +187,7 @@
 
 
             <ImageView
-                android:id="@+id/show_im_take_photo"
+                android:id="@+id/show_car_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/camera_icon"/>
