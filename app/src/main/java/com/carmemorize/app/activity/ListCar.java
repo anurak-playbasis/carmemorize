@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.carmemorize.app.R;
 import com.carmemorize.app.adapter.CarAdapter;
 import com.carmemorize.app.model.CarModel;
+import com.carmemorize.app.sql.SQLiteSource;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +34,6 @@ public class ListCar extends AppCompatActivity {
     TextView textDeflaut;
     ArrayList<CarModel> CarModelModels;
     CarAdapter carAdapter;
-    Boolean carCount ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,37 +92,17 @@ public class ListCar extends AppCompatActivity {
 
             }
         });
-       // textDeflaut.setVisibility(View.GONE);
-        SQLiteDatabase db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("select * from car_detail ", null);
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String carId = cursor.getString(1);
-                String dateBuy = cursor.getString(2);
-                String name = cursor.getString(3);
-                String brand = cursor.getString(4);
-                String licenseCar = cursor.getString(5);
-                String colorCar = cursor.getString(6);;
-                String photoCar = cursor.getString(7);;
 
-                CarModelModels.add(new CarModel(carId,dateBuy,name, brand, licenseCar, colorCar, photoCar));
+        CarModelModels = SQLiteSource.getCarData(this);
 
-            } while (cursor.moveToNext());
-            carCount = true;
-        } else {
-            Log.e("444444"," no data");
-            carCount = false;
-
-        }
-
-        if (carCount != true ){
+        if (CarModelModels.size() == 0){
 
             carListItem.setVisibility(View.GONE);
             noCar.setImageDrawable(getResources().getDrawable(R.drawable.no_car));
             textDeflaut.setText("No list name of car");
 
         }else {
-            Collections.reverse(CarModelModels);
+
             carAdapter = new CarAdapter(this, R.layout.car_item, CarModelModels);
             carListItem.setAdapter(carAdapter);
         }
