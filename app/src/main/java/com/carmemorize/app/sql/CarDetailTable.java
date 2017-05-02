@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class SQLiteSource {
+public class CarDetailTable {
 
     public static ArrayList<CarModel> getCarData(Activity activity){
 

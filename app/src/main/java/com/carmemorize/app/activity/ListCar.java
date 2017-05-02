@@ -1,13 +1,9 @@
 package com.carmemorize.app.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,12 +13,9 @@ import android.widget.TextView;
 import com.carmemorize.app.R;
 import com.carmemorize.app.adapter.CarAdapter;
 import com.carmemorize.app.model.CarModel;
-import com.carmemorize.app.sql.SQLiteSource;
+import com.carmemorize.app.sql.CarDetailTable;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
 public class ListCar extends AppCompatActivity {
 
@@ -93,7 +86,7 @@ public class ListCar extends AppCompatActivity {
             }
         });
 
-        CarModelModels = SQLiteSource.getCarData(this);
+        CarModelModels = CarDetailTable.getCarData(this);
 
         if (CarModelModels.size() == 0){
 
