@@ -36,6 +36,8 @@ import com.carmemorize.app.R;
 import com.carmemorize.app.component.Constants;
 import com.carmemorize.app.component.RoundedImageView;
 import com.carmemorize.app.component.Utils;
+import com.carmemorize.app.model.CarModel;
+import com.carmemorize.app.sql.CarDetailTable;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -401,30 +403,23 @@ public class AddCar extends AppCompatActivity {
 
     private void saveDataToBase() {
 
-        sharedpreference = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
+        CarModel carModel = new CarModel(
+                carId,
+                dateOfBuy.getText().toString(),
+                nameCar.getText().toString(),
+                brandCar.getText().toString(),
+                licenseCar.getText().toString(),
+                sharedpreference.getString("spColor",null),
+                photoName != null ? photoName : ""
+        );
 
-        carId = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-        ContentValues cv = new ContentValues();
-        cv.put("car_id", carId);
-        cv.put("date_buy",dateOfBuy.getText().toString());
-        cv.put("name_car",nameCar.getText().toString());
-        cv.put("brand", brandCar.getText().toString() );
-        cv.put("license_car", licenseCar.getText().toString());
-        cv.put("color_car", sharedpreference.getString("spColor",null));
-        cv.put("photo_car", photoName != null ? photoName : "");
-        db.insert("car_detail", null, cv);
-        db.close();
-
-        if (db != null){
+        if(CarDetailTable.saveCarDetail(AddCar.this, carModel)){
 
             Toast.makeText(AddCar.this, getString(R.string.toast_add_data_successfully), Toast.LENGTH_SHORT).show();
 
             openMain();
 
         }
-
     }
 
 
