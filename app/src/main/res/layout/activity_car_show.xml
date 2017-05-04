@@ -189,8 +189,8 @@
 
             <ImageView
                 android:id="@+id/show_car_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="105dp"
+                android:layout_height="110dp"
                 android:src="@drawable/camera_icon"/>
 
         </LinearLayout>
