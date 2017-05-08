@@ -26,27 +26,91 @@
 
         </android.support.v7.widget.Toolbar>
 
+
+
+
     <LinearLayout
-        android:orientation="vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/service_tab"
-            android:background="@color/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabIndicatorColor="@android:color/white"
-            app:tabIndicatorHeight="4dp"
-            android:fillViewport="false" />
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:weightSum="1">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/service_viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/btn_my_car"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:src="@drawable/mycar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/btn_energy"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:src="@drawable/energy"
+                android:layout_weight="0.22" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/btn_tax"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:src="@drawable/tax"
+                android:layout_weight="0.47" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/btn_service"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:src="@drawable/service"
+                android:layout_weight="0.16" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 
