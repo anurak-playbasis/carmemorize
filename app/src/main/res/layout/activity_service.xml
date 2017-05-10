@@ -5,137 +5,50 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.carmemorize.app.activity.Service">
+    tools:context=".activity.Service">
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Service"
+            android:textSize="22dp"
+            android:layout_marginRight="45dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Service"
-                android:textSize="22dp"
-                android:layout_marginRight="45dp"
-                android:textStyle="bold" />
-
-        </android.support.v7.widget.Toolbar>
-
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-
-            android:layout_width="0dp"
-            android:layout_height="91dp"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:weightSum="1">
-
-            <ImageView
-                android:id="@+id/btn_my_car"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="false"
-                android:cropToPadding="false"
-                android:src="@drawable/radiators" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Radiater" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:weightSum="1">
-
-
-            <ImageView
-                android:id="@+id/btn_energy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/tire" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trie"/>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/break_system"
-        android:gravity="left"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/btn_tax"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/service_tab"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/car_break" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorHeight="4dp"
+            android:fillViewport="false" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Break System"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/oil_chang"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="left"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <ImageView
-            android:id="@+id/btn_service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/oil" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Oil Chang"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/service_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
 
 </LinearLayout>
-
-
