@@ -81,5 +81,10 @@
     <!--add my car-->
     <string name="text_add_my_car">Add My Car</string>
     <string name="text_edit_my_car">Edit My Car</string>
+    <string name="Alert">Alert</string>
+    <string name="Radiater">Radiater</string>
+    <string name="break">Break</string>
+    <string name="breaksys">Break system</string>
+    <string name="oilss">Oil Change</string>
 
 </resources>
