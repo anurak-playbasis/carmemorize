@@ -84,7 +84,7 @@
                 android:id="@+id/btn_tax"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
-                android:src="@drawable/break"
+                android:src="@drawable/car_break"
                 android:layout_weight="0.47" />
         </LinearLayout>
 
