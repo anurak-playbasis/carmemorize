@@ -35,34 +35,27 @@
         android:orientation="horizontal">
 
         <LinearLayout
+
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="91dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="left"
             android:weightSum="1">
 
             <ImageView
                 android:id="@+id/btn_my_car"
-                android:layout_width="92dp"
-                android:layout_height="87dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
                 android:src="@drawable/radiators" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radiater"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:weightSum="1">
-
-            <ImageView
-                android:id="@+id/btn_energy"
-                android:layout_width="130dp"
-                android:layout_height="120dp"
-                android:layout_weight="0.22"
-                android:src="@drawable/tire" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -74,37 +67,74 @@
         android:layout_weight="1">
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left"
             android:weightSum="1">
 
-            <ImageView
-                android:id="@+id/btn_tax"
-                android:layout_width="130dp"
-                android:layout_height="120dp"
-                android:src="@drawable/car_break"
-                android:layout_weight="0.47" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:weightSum="1">
 
             <ImageView
-                android:id="@+id/btn_service"
-                android:layout_width="130dp"
-                android:layout_height="120dp"
-                android:src="@drawable/oil"
-                android:layout_weight="0.16" />
+                android:id="@+id/btn_energy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tire" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trie"/>
+
 
         </LinearLayout>
+
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/break_system"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/btn_tax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/car_break" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Break System"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/oil_chang"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/btn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/oil" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oil Chang"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>
 
