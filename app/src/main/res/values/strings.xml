@@ -86,5 +86,8 @@
     <string name="break">Break</string>
     <string name="breaksys">Break system</string>
     <string name="oilss">Oil Change</string>
+    <string name="Kilometer">Kilometer</string>
+    <string name="Volume">Volume</string>
+    <string name="History">History</string>
 
 </resources>
