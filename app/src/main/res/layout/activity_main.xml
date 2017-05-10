@@ -8,24 +8,26 @@
 
 
     <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" >
+            android:background="?attr/colorPrimary"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Car Memorize"
-                android:textSize="22dp"
-                android:textStyle="bold"
+                android:layout_height="match_parent"
                 android:layout_marginRight="45dp"
-                android:gravity="center"/>
+                android:layout_weight="0"
+                android:gravity="center"
+                android:text="@string/CarMemorize"
+                android:textSize="22dp"
+                android:textStyle="bold" />
 
         </android.support.v7.widget.Toolbar>
 
