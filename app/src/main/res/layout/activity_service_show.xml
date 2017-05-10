@@ -27,42 +27,40 @@
         </android.support.v7.widget.Toolbar>
 
 
-
-
     <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:weightSum="1">
 
             <ImageView
                 android:id="@+id/btn_my_car"
-                android:layout_width="130dp"
-                android:layout_height="120dp"
-                android:src="@drawable/mycar" />
+                android:layout_width="92dp"
+                android:layout_height="87dp"
+                android:src="@drawable/radiators" />
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:weightSum="1">
 
             <ImageView
                 android:id="@+id/btn_energy"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
-                android:src="@drawable/energy"
-                android:layout_weight="0.22" />
+                android:layout_weight="0.22"
+                android:src="@drawable/tire" />
 
         </LinearLayout>
 
@@ -86,7 +84,7 @@
                 android:id="@+id/btn_tax"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
-                android:src="@drawable/tax"
+                android:src="@drawable/break"
                 android:layout_weight="0.47" />
         </LinearLayout>
 
@@ -101,7 +99,7 @@
                 android:id="@+id/btn_service"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
-                android:src="@drawable/service"
+                android:src="@drawable/oil"
                 android:layout_weight="0.16" />
 
         </LinearLayout>
