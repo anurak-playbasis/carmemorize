@@ -5,16 +5,21 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.carmemorize.app.activity.AddCar;
 import com.carmemorize.app.constant.CarConstants;
 import com.carmemorize.app.model.CarModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
 
 public class CarDetailTable {
+
 
     public static ArrayList<CarModel> getCarData(Activity activity){
 
@@ -48,6 +53,7 @@ public class CarDetailTable {
     public static boolean saveCarDetail(Activity activity, CarModel carModel){
 
         boolean savedCarDetail = false;
+        String action = "Add car";
 
        SQLiteDatabase db = activity.openOrCreateDatabase(CarConstants.CARMEMORIZE_DATABASE, Context.MODE_PRIVATE, null);
 
@@ -70,6 +76,8 @@ public class CarDetailTable {
 
         }
 
+        // add action car logs.
+        HistoryTable.saveCarHistory(activity, action, carId);
         return savedCarDetail;
     }
 

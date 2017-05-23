@@ -20,14 +20,14 @@
             android:weightSum="1">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="45dp"
-                android:layout_weight="0"
                 android:gravity="center"
                 android:text="@string/CarMemorize"
-                android:textSize="22dp"
-                android:textStyle="bold" />
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_weight="0.61" />
 
         </android.support.v7.widget.Toolbar>
 

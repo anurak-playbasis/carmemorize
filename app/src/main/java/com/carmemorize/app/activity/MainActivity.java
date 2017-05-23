@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void crateDatabase(){
+
         try {
 
             db = openOrCreateDatabase("CARMEMORIZE", Context.MODE_PRIVATE, null);
@@ -114,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
             String tax = "create table if not exists tax_car(id INTEGER PRIMARY KEY AUTOINCREMENT,car_id text,expiration_date date," +
                     "price_tax text,alert_tax text,photo_tax text)";
             db.execSQL(tax);
+
+            String history = "create table if not exists history_car(id INTEGER PRIMARY KEY AUTOINCREMENT,car_id text,his_time text,his_date text," +
+                    "his_detail text)";
+            db.execSQL(history);
 
             db.close();
         }catch(Exception e)

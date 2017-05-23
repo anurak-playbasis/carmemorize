@@ -14,6 +14,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_MY_CAR= "car_detail";
     public static final String ENERGY_CAR= "energy_car";
     public static final String TAX_CAR= "tax_car";
+    public static final String HISTORY_CAR= "history_car";
 
     private static final String DATABASE_NAME = "CARMEMORIZE.db";
     private static final String TAG = "MySQLiteHelper";
@@ -47,7 +48,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String ALERT_TAX = "alert_tax";
     public static final String PHOTOTAX = "photo_tax";
 
-
+    public static final String HIS_TIME = "his_time";
+    public static final String HIS_DATE = "his_date";
+    public static final String HIS_DETAIL = "his_detail";
 
     public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -76,6 +79,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 + CAR_ID + " TEXT, "+ EXPIRATIONDATE + " DATE, " + PRICE_TAX + " TEXT, " + ALERT_TAX + " TEXT, "+  PHOTOTAX + " TEXT" + ");";
         db.execSQL(TAX);
 
+        String HISTORY = "CREATE TABLE "
+                + HISTORY_CAR + "(" + COLUMN_ID + " INTEGER PRIMARY KEY, " + KEY + " TEXT, "
+                + CAR_ID + " TEXT, "+ HIS_TIME + " TEXT, "+ HIS_DATE + " TEXT, " + HIS_DETAIL + " TEXT, " + ");";
+        db.execSQL(HISTORY);
+
 
     }
 
@@ -86,6 +94,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " +TABLE_MY_CAR);
         db.execSQL("DROP TABLE IF EXISTS " +ENERGY_CAR);
         db.execSQL("DROP TABLE IF EXISTS " +TAX_CAR);
+        db.execSQL("DROP TABLE IF EXISTS " +HISTORY_CAR);
 
         // Create tables again
         onCreate(db);

@@ -38,6 +38,7 @@ import com.carmemorize.app.component.RoundedImageView;
 import com.carmemorize.app.component.Utils;
 import com.carmemorize.app.model.CarModel;
 import com.carmemorize.app.sql.CarDetailTable;
+import com.carmemorize.app.sql.HistoryTable;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -59,6 +60,7 @@ public class AddCar extends AppCompatActivity {
     private SimpleDateFormat dateFormatter;
     SQLiteDatabase db;
     public static final String MyPREFERENCES = "shareCar";
+    public static final String MyHISTORY = "historyCar";
     SharedPreferences sharedpreference;
     SharedPreferences.Editor editor;
     //String[] separated;

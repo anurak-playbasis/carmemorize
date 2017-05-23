@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.carmemorize.app.R;
 import com.carmemorize.app.activity.CarShow;
+import com.carmemorize.app.activity.History;
 import com.carmemorize.app.activity.ListEnergy;
 import com.carmemorize.app.activity.Service;
 import com.carmemorize.app.activity.TaxShow;
@@ -104,12 +105,12 @@ public class CarAdapter extends ArrayAdapter<CarModel> {
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("5")){
-                    Intent intent = new Intent(getContext(), CarShow.class);
+                    Intent intent = new Intent(getContext(), History.class);
                     intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }
                 else if (numberPage.equals("6")){
-                    Intent intent = new Intent(getContext(), CarShow.class);
+                    Intent intent = new Intent(getContext(), History.class);
                     intent.putExtra(Constants.CAR_ID, carModel.getCarId());
                     getContext().startActivity(intent);
                 }

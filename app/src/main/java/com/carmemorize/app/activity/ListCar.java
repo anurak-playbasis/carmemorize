@@ -59,7 +59,7 @@ public class ListCar extends AppCompatActivity {
             addCar.setVisibility(View.GONE);
         }
         else if (numberPage.equals("5")){
-            mTitle.setText("Service");
+            mTitle.setText("History");
             addCar.setVisibility(View.GONE);
         }
         else if (numberPage.equals("6")){
